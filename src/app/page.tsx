@@ -14,22 +14,22 @@ export default function Home() {
     const fetchUser = async () => {
       const { username, userId, signInDetails } = await getCurrentUser();
 
-      console.log("username", username);
-      console.log("user id", userId);
-      console.log("sign-in details", signInDetails);
+      console.error("username", username);
+      console.error("user id", userId);
+      console.error("sign-in details", signInDetails);
     };
 
     const fetchAccessToken = async () => {
       try {
         const session = await fetchAuthSession();
 
-        console.log(
+        console.error(
             "JSON Schema ============================= session",
             session
         );
-        console.log("✅ Session:", session);
-        console.log("id token", session?.tokens?.idToken);
-        console.log("access token", session?.tokens?.accessToken);
+        console.error("✅ Session:", session);
+        console.error("id token", session?.tokens?.idToken);
+        console.error("access token", session?.tokens?.accessToken);
       } catch (error) {
         console.error("🚨 Error fetching access token:", error);
       }
