@@ -1,0 +1,19 @@
+{
+  "version": "39.0.0",
+  "files": {
+    "f748f954d6d87261ebeab2bb99ab4346502587b35797d7697e5f5592660dedb8": {
+      "source": {
+        "path": "amplify-amplifyauth-karthikramesh-sandbox-0396a95432.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "f748f954d6d87261ebeab2bb99ab4346502587b35797d7697e5f5592660dedb8.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

@@ -1,7 +1,51 @@
+"use client";
 import Image from "next/image";
+import { Authenticator } from '@aws-amplify/ui-react';
+import outputs from "../../amplify_outputs.json";
+import { Amplify } from 'aws-amplify';
+import {useEffect} from "react";
+import {fetchAuthSession, getCurrentUser} from "@aws-amplify/auth";
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+Amplify.configure(outputs);
 export default function Home() {
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { username, userId, signInDetails } = await getCurrentUser();
+
+      console.log("username", username);
+      console.log("user id", userId);
+      console.log("sign-in details", signInDetails);
+    };
+
+    const fetchAccessToken = async () => {
+      try {
+        const session = await fetchAuthSession();
+
+        console.log(
+            "JSON Schema ============================= session",
+            session
+        );
+        console.log("✅ Session:", session);
+        console.log("id token", session?.tokens?.idToken);
+        console.log("access token", session?.tokens?.accessToken);
+      } catch (error) {
+        console.error("🚨 Error fetching access token:", error);
+      }
+    };
+
+    fetchUser();
+    fetchAccessToken();
+  }, []);
   return (
+      <Authenticator>
+        {({ signOut, user }) => (
+            <main>
+              <h1>Hello {user?.username}</h1>
+              <button onClick={signOut}>Sign out</button>
+
+
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <Image
@@ -97,5 +141,8 @@ export default function Home() {
         </a>
       </footer>
     </div>
+            </main>
+)}
+</Authenticator>
   );
 }
